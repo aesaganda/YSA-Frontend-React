@@ -1,7 +1,0 @@
-opencv-python
-onnxruntime
-imread_from_url
-requests
-firebase_admin
-fastapi
-uvicorn
