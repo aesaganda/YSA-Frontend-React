@@ -17,7 +17,7 @@ function Uploder() {
 
   const onInputChange = (e) => {
     setFile(e.target.files[0]);
-    if (e.target.files[0]===undefined || e.target.files[0]===null) {
+    if (e.target.files[0] === undefined || e.target.files[0] === null) {
       setImageSource(null);
     }
   }
@@ -39,35 +39,35 @@ function Uploder() {
     if (file === null || file === undefined) {
       errorAlert("Lütfen bir resim seçiniz.");
     }
-    else{
-          const id = toast.loading("Lütfen bekleyiniz...");
+    else {
+      const id = toast.loading("Lütfen bekleyiniz...");
 
-          var start = new Date().getTime();
-          
-          const base64 = await toBase64(file);
-          const token = await getAuth().currentUser.getIdToken()
-          var result = await axios.post("https://api.marun.tk/detect", {
-            image: base64,
-          }, {
-            headers: {
-              'Authorization': `Bearer ${token}`
-            }
-          })
-          setImageSource(`data:image/jpeg;base64, ${result.data.image}`);
-      
-          if (result.data.error) {
-            toast.update(id, { render: "Başarılı.", type: "error", isLoading: false, closeOnClick: true, autoClose: 4000 });
-          }
-          else {
-            toast.update(id, { render: "Başarılı.", type: "success", isLoading: false, closeOnClick: true, autoClose: 4000 });
-          }
+      var start = new Date().getTime();
 
-          var end = new Date().getTime();
-          var time = end - start;
-          //ms to s
-          time = time / 1000;
-          infoAlert("İşlem süresi: " + time + " s");
-          
+      const base64 = await toBase64(file);
+      const token = await getAuth().currentUser.getIdToken()
+      var result = await axios.post("https://api.aestech.org/detect", {
+        image: base64,
+      }, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      setImageSource(`data:image/jpeg;base64, ${result.data.image}`);
+
+      if (result.data.error) {
+        toast.update(id, { render: "Başarılı.", type: "error", isLoading: false, closeOnClick: true, autoClose: 4000 });
+      }
+      else {
+        toast.update(id, { render: "Başarılı.", type: "success", isLoading: false, closeOnClick: true, autoClose: 4000 });
+      }
+
+      var end = new Date().getTime();
+      var time = end - start;
+      //ms to s
+      time = time / 1000;
+      infoAlert("İşlem süresi: " + time + " s");
+
     }
   }
 
@@ -101,8 +101,8 @@ function Uploder() {
           <form onSubmit={onFormSubmit}>
             <h3 style={{ color: "white" }}>Yüklemek İstediğiniz Dosyayı Seçiniz</h3>
             <br />
-            <label className = "custom-file-upload">
-              <input type="file" name='photo' onChange={onInputChange}/>
+            <label className="custom-file-upload">
+              <input type="file" name='photo' onChange={onInputChange} />
               Resim Seçin
             </label>
             <button type="submit" className='button-upload'>Sisteme Yükleyiniz</button>
